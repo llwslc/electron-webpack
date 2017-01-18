@@ -1,0 +1,47 @@
+{
+  "name": "neuro-software",
+  "description": "An electron-vue project",
+  "version": "0.0.0",
+  "author": "llwslc <llwslc@gmail.com>",
+  "scripts": {
+{{#if rebuild}}
+    "postinstall": "cd app && npm i && node ../tasks/install.js",
+{{else}}
+    "postinstall": "cd app && npm i",
+{{/if}}
+    "dev": "node tasks/runner.js dev",
+    "pack": "node tasks/runner.js pack",
+    "package": "node tasks/package.js",
+    "pack:just": "node tasks/package.js pack",
+    "package:just": "node tasks/package.js package"
+  },
+  "devDependencies": {
+    "async": "^2.1.4",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "cross-env": "^3.1.3",
+    "css-loader": "^0.26.1",
+    "devtron": "^1.4.0",
+    "electron": "^1.4.13",
+    "electron-packager": "^8.4.0",
+    "extract-text-webpack-plugin": "^2.0.0-beta.4",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.24.1",
+    "iconv-lite": "^0.4.15",
+    "node-sass": "^4.1.1",
+    "sass-loader": "^4.1.0",
+    "style-loader": "^0.13.1",
+    "tree-kill": "^1.1.0",
+    "url-loader": "^0.5.7",
+    "vue": "^2.1.6",
+    "vue-devtools": "^2.3.1-beta1",
+    "vue-loader": "^10.0.2",
+    "vue-style-loader": "^1.0.0",
+    "vue-template-compiler": "^2.1.6",
+    "webpack": "^2.1.0-beta.25",
+    "webpack-dev-server": "^2.1.0-beta.9"
+  }
+}

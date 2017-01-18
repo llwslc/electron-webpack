@@ -1,0 +1,10 @@
+
+app/dist/*
+packages/*
+node_modules
+npm-debug.log
+npm-debug.log.*
+
+.DS_Store
+.idea
+thumbs.db
