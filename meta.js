@@ -37,7 +37,7 @@ All set. More configurations can be made at \x1b[33m{{destDirName}}/config.js\x1
 Next steps:
   1. \x1B[32mcd {{destDirName}}\x1b[0m
   2. \x1B[32mnpm i\x1b[0m
-{{#if_or rebuild fork)}}
+{{#if_or rebuild fork}}
   3.
 {{/if_or}}
 {{#if rebuild}}
