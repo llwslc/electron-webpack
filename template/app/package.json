@@ -1,0 +1,14 @@
+{
+  "name": "{{ name }}",
+  "description": "{{ description }}",
+  "version": "0.0.0",
+  "author": "llwslc <llwslc@gmail.com>",
+  "main": "electron.js",
+  "dependencies": {
+    "async": "^2.1.4",
+    "jquery": "^3.1.1",
+    "vue": "^2.1.6",
+    "vue-router": "^2.1.1",
+    "vuex": "^2.1.1"
+  }
+}

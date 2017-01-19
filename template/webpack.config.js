@@ -92,7 +92,7 @@ let forkConfig = {
   target: 'electron',
   devtool: '#eval-source-map',
   entry: {
-    fork: path.join(__dirname, './app/src/sections/analyseResultFork.js')
+    fork: path.join(__dirname, './app/src/sections/forkJs.js')
   },
   module: {
     rules: [

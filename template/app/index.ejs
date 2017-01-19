@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script type="text/javascript">
+      const fs = require('fs');
+      const events = require('events');
+      const path = require('path');
+      const readline = require('readline');
+      const childProcess = require('child_process');
+      const dgram = require('dgram');
+      const net = require('net');
+
+      const { dialog } = require('electron').remote;
+      const { shell } = require('electron');
+
+      if (process.env.NODE_ENV === 'developmentHot')
+      {
+        module.paths.push(path.resolve('app', 'node_modules'));
+      }
+
+      const __curdirname = __dirname;
+
+      const $ = require('jquery');
+      const async = require('async');
+
+      const NaiveAddonObj = require('NaiveAddon.node');
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- webpack builds are automatically injected -->
+  </body>
+</html>

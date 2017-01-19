@@ -1,6 +1,6 @@
 {
-  "name": "neuro-software",
-  "description": "An electron-vue project",
+  "name": "{{ name }}",
+  "description": "{{ description }}",
   "version": "0.0.0",
   "author": "llwslc <llwslc@gmail.com>",
   "scripts": {
