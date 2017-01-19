@@ -9,7 +9,7 @@
 </template>
 
 <script>
-  import HelloPage from './mindoop/helloPage.vue';
+  import HelloPage from './pages/helloPage.vue';
 
   import Vue from 'vue';
   import Store from '../vuex/store';
