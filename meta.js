@@ -38,6 +38,6 @@ Next steps:
   1. \x1B[32mcd {{destDirName}}\x1b[0m
   2. \x1B[32mnpm i\x1b[0m
   3. If rebuild flag is true. Need to be modified at \x1b[33m{{destDirName}}/tasks/install.js\x1b[0m.
-     If fork flag is true. Need to be modified at \x1b[33m{{destDirName}}/app/src/sections/fork.js\x1b[0m.
+     If fork flag is true. Need to be modified at \x1b[33m{{destDirName}}/app/src/sections/forkJs.js\x1b[0m.
   4. \x1B[32mnpm run dev\x1b[0m`
 }

@@ -9,7 +9,9 @@ if (process.env.NODE_ENV === 'developmentHot') {
   global.__non_webpack_require__ = require;
 }
 
-global.NaiveAddonObj = __non_webpack_require__('NaiveAddon.node');
+{{#if rebuild}}
+global.NativeAddonObj = __non_webpack_require__('NativeAddon.node');
+{{/if}}
 
 process.on("message", function (msg)
 {

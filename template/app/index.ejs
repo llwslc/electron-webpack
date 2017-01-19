@@ -24,8 +24,9 @@
 
       const $ = require('jquery');
       const async = require('async');
-
-      const NaiveAddonObj = require('NaiveAddon.node');
+{{#if rebuild}}
+      const NativeAddonObj = require('NativeAddon.node');
+{{/if}}
     </script>
   </head>
   <body>
