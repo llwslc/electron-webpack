@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span>{{ t('el.tree.emptyText') }}</span>
+    <span>\{{ t('el.tree.emptyText') }}</span>
   </div>
 </template>
 
