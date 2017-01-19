@@ -35,16 +35,31 @@ module.exports = {
 All set. More configurations can be made at \x1b[33m{{destDirName}}/config.js\x1b[0m.
 
 Next steps:
-  1. \x1B[32mcd {{destDirName}}\x1b[0m
-  2. \x1B[32mnpm i\x1b[0m
-{{#if_or rebuild fork}}
+  1.
+     \x1B[32mcd {{destDirName}}\x1b[0m
+  2.
+     \x1B[32mnpm i\x1b[0m
+{{#if rebuild}}
   3.
-{{/if_or}}
+{{else}}
+{{#if fork}}
+  3.
+{{/if}}
+{{/if}}
 {{#if rebuild}}
      The \x1B[1mrebuild\x1b[0m flag is true. Need to be modified at \x1b[33m{{destDirName}}/tasks/install.js\x1b[0m.
 {{/if}}
 {{#if fork}}
      The \x1B[1mfork\x1b[0m flag is true. Need to be modified at \x1b[33m{{destDirName}}/app/src/sections/forkJs.js\x1b[0m.
 {{/if}}
-  last. \x1B[32mnpm run dev\x1b[0m`
+{{#if rebuild}}
+  4.
+{{else}}
+{{#if fork}}
+  4.
+{{else}}
+  3.
+{{/if}}
+{{/if}}
+     \x1B[32mnpm run dev\x1b[0m`
 }
