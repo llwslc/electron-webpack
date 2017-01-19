@@ -37,6 +37,9 @@ All set. More configurations can be made at \x1b[33m{{destDirName}}/config.js\x1
 Next steps:
   1. \x1B[32mcd {{destDirName}}\x1b[0m
   2. \x1B[32mnpm i\x1b[0m
+{{#if rebuild | fork}}
+  3.
+{{/if}}
 {{#if rebuild}}
   The \x1B[1mrebuild\x1b[0m flag is true. Need to be modified at \x1b[33m{{destDirName}}/tasks/install.js\x1b[0m.
 {{/if}}
