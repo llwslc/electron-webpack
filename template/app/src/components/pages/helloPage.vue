@@ -1,6 +1,8 @@
 <template>
   <div>
     <span>\{{ t('el.tree.emptyText') }}</span>
+    <br>
+    <span>\{{ hello }}</span>
   </div>
 </template>
 
@@ -15,6 +17,7 @@
 
     data() {
       return {
+        hello: Hello.hello
       }
     },
 
