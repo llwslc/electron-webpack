@@ -68,7 +68,7 @@ let indexConfig = {
     }),
     new webpack.ProvidePlugin({
     }),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   node: {
     __dirname: true

@@ -20,7 +20,7 @@ function run (command, color, name) {
      *
      * NOTE: needs more testing for stability
      */
-    if (/VALID/g.test(data.toString()) && !isElectronOpen) {
+    if (/Compiled successfully/g.test(data.toString()) && !isElectronOpen) {
       util.colFormat(`Starting electron...\n`, util.BLUE);
       run(`${util.hotEnv} electron app/electron.js`, util.BLUE, 'electron');
       isElectronOpen = true;
