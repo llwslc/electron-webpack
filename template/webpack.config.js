@@ -35,6 +35,10 @@ let indexConfig = {
         }
       },
       {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
+      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallbackLoader: "style-loader",
