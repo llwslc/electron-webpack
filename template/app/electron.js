@@ -16,7 +16,7 @@ else
     process.env.NODE_ENV = 'production';
 }
 
-if (process.env.NODE_ENV === 'developmentHot');
+if (process.env.NODE_ENV === 'developmentHot')
 {
     config = require('../config');
     config.url = `http://localhost:${config.port}`;
