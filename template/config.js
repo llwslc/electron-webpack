@@ -19,6 +19,12 @@ let config = {
     ignore: /^\/(icons|shell|src|index\.ejs)/,
     prune: false,
     overwrite: true,
+    win32metadata: {
+{{#if companyname}}
+      CompanyName: '{{ companyname }}',
+{{/if}}
+      FileDescription: '{{ name }}',
+    },
     platform: require('os').platform(),
     out: path.join(__dirname, 'packages'),
   }

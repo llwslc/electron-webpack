@@ -10,13 +10,18 @@ module.exports = {
     description: {
       type: 'string',
       required: false,
-      message: 'Project description',
+      message: 'Project Description',
       default: 'An electron-webpack project'
+    },
+    companyname: {
+      type: 'string',
+      required: false,
+      message: 'Company Name',
     },
     rebuild: {
       type: 'confirm',
       require: true,
-      message: 'Use native addons?',
+      message: 'Use Native Addons?',
       default: true
     },
     fork: {

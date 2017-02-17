@@ -35,7 +35,11 @@ function del (mPath, cb) {
   let pack = exec(`${delDirCmd} ${mPath}`, {encoding: 'binary'});
 
   pack.stdout.on('data', data => util.logFormat(`delDir`, data, util.BLUE));
-  pack.stderr.on('data', data => util.errFormat(`delDir`, data, util.BLUE));
+  pack.stderr.on('data', data => {
+    util.errFormat(`delDir`, data, util.BLUE);
+    util.logFormat(`tryRun`, `npm run package:just`, util.RED);
+  });
+
   pack.on('exit', code => {
     if (code !== 0) {
       return;
