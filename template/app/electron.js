@@ -8,7 +8,7 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 let config = {};
 
-if (!!process.env.NODE_ENV);
+if (!!process.env.NODE_ENV)
 {
 }
 else
