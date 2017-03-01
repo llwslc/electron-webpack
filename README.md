@@ -15,7 +15,9 @@
 * 包含多平台文件打包示例
   * win
     * 打包生成程序为 msi 安装文件.
+      * 依赖 (microsoft visual studio 2015 installer projects)[https://marketplace.visualstudio.com/items?itemName=VisualStudioProductTeam.MicrosoftVisualStudio2015InstallerProjects].
     * 打包生成程序为 zip 升级文件.
+      * 依赖 windows powerShell 5.0 及以上.
   * mac
     * 打包生成程序为 dmg 安装文件.
     * 打包生成程序为 zip 升级文件.
