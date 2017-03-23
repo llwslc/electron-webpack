@@ -2,7 +2,7 @@
   "name": "{{ name }}",
   "description": "{{ description }}",
   "version": "0.0.0",
-  "author": "llwslc <llwslc@gmail.com>",
+  "author": "{{ author }}",
   "main": "electron.js",
   "dependencies": {
     "async": "^2.1.4",
