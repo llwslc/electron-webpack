@@ -127,7 +127,6 @@ var UpdateObj = function ()
       },
       function (res, cb)
       {
-        self.updateURL = 'http://10.0.1.6:3000/update.zip';
         var request = http.get(self.updateURL, function (response)
         {
           var statusCode = response.statusCode;

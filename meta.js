@@ -21,25 +21,25 @@ module.exports = {
     rebuild: {
       type: 'confirm',
       require: true,
-      message: 'Use Native Addons?',
+      message: 'Use Native Addons (rebuild flag)?',
       default: true
     },
     fork: {
       type: 'confirm',
       require: true,
-      message: 'Use child_process.fork?',
+      message: 'Use child_process.fork (fork flag)?',
       default: true
     },
     update: {
       type: 'confirm',
       require: true,
-      message: 'Use update framework?',
+      message: 'Use update framework (update flag)?',
       default: true
     },
     installer: {
       type: 'confirm',
       require: true,
-      message: 'Make installer?',
+      message: 'Make installer (installer flag)?',
       default: true
     },
   },
