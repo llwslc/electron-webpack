@@ -1,4 +1,6 @@
 
+const exec = require('child_process').exec;
+const fs = require('fs');
 const platform = require('os').platform();
 const iconv = require('iconv-lite');
 
@@ -33,7 +35,8 @@ let RED_BG = styles.redBG[0];
 let END = styles.end[0];
 
 var Encoding = 'utf8';
-if (platform === 'win32') {
+if (platform === 'win32')
+{
   Encoding = 'GBK';
 }
 
@@ -41,11 +44,13 @@ let hotEnv = 'cross-env NODE_ENV=developmentHot';
 let packEnv = 'cross-env NODE_ENV=developmentPack';
 let rlsEnv = 'cross-env NODE_ENV=production';
 
-function repeat (str, times) {
-  return (new Array(times + 1)).join(str)
-}
+var repeat = function (str, times)
+{
+  return (new Array(times + 1)).join(str);
+};
 
-function format (pre, data, col) {
+var format = function (pre, data, col)
+{
   if (!!!col) col = YELLOW;
 
   if (data.replace(/\x08/g, '').length === 0) return false;
@@ -54,26 +59,59 @@ function format (pre, data, col) {
   var decodedBody = iconv.decode(Buffer(data.replace(/\n/g, '\n' + repeat(' ', pre.length + 2)), 'binary'), Encoding);
 
   return decodedBody;
-}
+};
 
-function logFormat (pre, data, col) {
+var logFormat = function (pre, data, col)
+{
   var log = format(pre, data, col);
-  if (!!log) {
+  if (!!log)
+  {
     console.log(`${col}${pre}${END}  ${log}`);
   }
-}
+};
 
-function errFormat (pre, data, col) {
+var errFormat = function (pre, data, col)
+{
   var log = format(pre, data, col);
-  if (!!log) {
+  if (!!log)
+  {
     console.log(`${col}${pre}${END}  ${RED_BG}!!!${END}  ${log}`);
   }
-}
+};
 
-function colFormat (data, col) {
+var colFormat = function (data, col)
+{
   if (!!!col) col = END;
   console.log(`${col}${data}${END}`);
-}
+};
+
+var execAsync = function (pre, cmd, col, cb)
+{
+  let child = exec(cmd, {encoding: 'binary'});
+  child.stdout.on('data', data => logFormat(pre, data, col));
+  child.stderr.on('data', data => errFormat(pre, data, col));
+  child.on('exit', code => {
+    if (code != 0)
+    {
+      cb(`code : ${code}\nerror cmd: ${cmd}`, null);
+    }
+    else
+    {
+      cb(null, null);
+    }
+  });
+};
+
+var copyAsync = function (source, target, cb)
+{
+  var writer = fs.createWriteStream(target);
+  var reader = fs.createReadStream(source);
+  reader.pipe(writer);
+  writer.on(`finish`, () => {
+    colFormat(`copy ${source} to ${target} finish`);
+    cb(null, null);
+  });
+};
 
 
-module.exports = { RED, YELLOW, BLUE, logFormat, errFormat, colFormat, hotEnv, packEnv, rlsEnv };
+module.exports = { RED, YELLOW, BLUE, logFormat, errFormat, colFormat, execAsync, copyAsync, hotEnv, packEnv, rlsEnv };

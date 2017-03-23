@@ -12,8 +12,8 @@
     "dev": "node tasks/runner.js dev",
     "pack": "node tasks/runner.js pack",
     "package": "node tasks/package.js",
-    "pack:just": "node tasks/package.js pack",
-    "package:just": "node tasks/package.js package"
+    "pack:just": "node tasks/package.js pack:just",
+    "package:just": "node tasks/package.js package:just"
   },
   "devDependencies": {
     "async": "^2.1.4",

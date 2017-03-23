@@ -15,7 +15,7 @@
 * 包含多平台文件打包示例
   * win
     * 打包生成程序为 msi 安装文件.
-      * 依赖 (microsoft visual studio 2015 installer projects)[https://marketplace.visualstudio.com/items?itemName=VisualStudioProductTeam.MicrosoftVisualStudio2015InstallerProjects].
+      * 依赖 [microsoft visual studio 2015 installer projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioProductTeam.MicrosoftVisualStudio2015InstallerProjects).
     * 打包生成程序为 zip 升级文件.
       * 依赖 windows powerShell 5.0 及以上.
   * mac
@@ -24,7 +24,7 @@
 * 包含多平台程序升级示例
   * electron 自带 autoUpdater 采用 Squirrel 框架, 不太友好, 故重构了一个较为简单的升级模块.
   * win
-    * 编译生成一个 update.exe 随主程序一起发布, 主程序请求升级并下载解压升级程序, 退出后执行 update.exe 程序覆盖原程序, 完成升级过程.
+    * 编译生成一个 update.exe 随主程序一起发布, 主程序请求升级并下载升级压缩包, 退出后执行 update.exe 程序覆盖原程序, 完成升级过程.
   * mac
     * 主程序请求升级并下载解压升级程序, 将解压文件通过 bash shell 直接覆盖原程序, 完成升级过程.
 * 包含两种调试模式
