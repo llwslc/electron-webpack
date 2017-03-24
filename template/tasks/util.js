@@ -53,10 +53,15 @@ var format = function (pre, data, col)
 {
   if (!!!col) col = YELLOW;
 
-  if (data.replace(/\x08/g, '').length === 0) return false;
-
   data = data.replace(/\n$/g, '');
-  var decodedBody = iconv.decode(Buffer(data.replace(/\n/g, '\n' + repeat(' ', pre.length + 2)), 'binary'), Encoding);
+  data = data.replace(/\x08/g, '');
+  data = data.replace(/^\x20+/g, '');
+  data = data.replace(/\n/g, '\n' + repeat(' ', pre.length + 2));
+  // for webpack compiling log
+  data = data.replace(/([0-9]+%)/g, '\n' + repeat(' ', pre.length + 2) + '$1');
+  data = data.replace(/^\n\x20+/g, '');
+
+  var decodedBody = iconv.decode(Buffer(data, 'binary'), Encoding);
 
   return decodedBody;
 };
@@ -72,7 +77,8 @@ var logFormat = function (pre, data, col)
 
 var errFormat = function (pre, data, col)
 {
-  var log = format(pre, data, col);
+  var errPre = pre + '  !!!';
+  var log = format(errPre, data, col);
   if (!!log)
   {
     console.log(`${col}${pre}${END}  ${RED_BG}!!!${END}  ${log}`);
