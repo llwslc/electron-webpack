@@ -58,8 +58,11 @@ var format = function (pre, data, col)
   data = data.replace(/^\x20+/g, '');
   data = data.replace(/\n/g, '\n' + repeat(' ', pre.length + 2));
   // for webpack compiling log
-  data = data.replace(/([0-9]+%)/g, '\n' + repeat(' ', pre.length + 2) + '$1');
-  data = data.replace(/^\n\x20+/g, '');
+  if (new RegExp("^webpack").test(pre))
+  {
+    data = data.replace(/([0-9]+%)/g, '\n' + repeat(' ', pre.length + 2) + '$1');
+    data = data.replace(/^\n\x20+/g, '');
+  }
 
   var decodedBody = iconv.decode(Buffer(data, 'binary'), Encoding);
 
