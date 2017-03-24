@@ -10,7 +10,7 @@ const vdprojConf = require('./vdprojConfig.json');
 var vdprojTmpl = function (sourceDir, msiName, vdprojPath)
 {
     var self = this;
-    
+
     self.getNewGuid = function (splitFlag)
     {
       var guidRes = childProcess.execSync(`powershell New-Guid`);
@@ -33,7 +33,7 @@ var vdprojTmpl = function (sourceDir, msiName, vdprojPath)
     self.vdprojDir = path.join(self.vdprojPath, `..`);
 
     self.allFileObj = {guid: self.targetDirGuid, file:{}};
-    
+
     self.hierarchyStr = "";
     self.fileStr = "";
     self.folderObj = {dir:{Folders:[]}};
@@ -186,7 +186,7 @@ var vdprojTmpl = function (sourceDir, msiName, vdprojPath)
                 }
             }
         }
-        
+
         self.folderStr = self.folderStr.replace(new RegExp(`\n+`, `g`), `\n`);
     };
 
@@ -685,7 +685,7 @@ var vdprojTmpl = function (sourceDir, msiName, vdprojPath)
             }`;
 
         deployProjectStr = deployProjectStr.replace(new RegExp(`\n {12}`, `g`), `\n`);
-        
+
         var utf8Bom = new Buffer([0xEF, 0xBB, 0xBF]);
         var contentBuff = new Buffer(deployProjectStr);
         var fileBuff = Buffer.concat([utf8Bom, contentBuff]);
@@ -701,7 +701,7 @@ var vdprojTmpl = function (sourceDir, msiName, vdprojPath)
         {
             fs.mkdirSync(self.vdprojDir);
         }
-        
+
         self.createDeployProject();
     };
 
