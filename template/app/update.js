@@ -99,30 +99,37 @@ var UpdateObj = function ()
           {
             cb(statusCode, null);
           }
-
-          if (!/^application\/json/.test(contentType))
+          else
           {
-            cb(statusCode, null);
-          }
-
-          response.setEncoding('utf8');
-          var rawData = '';
-          response.on('data', (chunk) => rawData += chunk);
-          response.on('end', function ()
-          {
-            try
-            {
-              var parsedData = JSON.parse(rawData);
-              self.updateURL = parsedData.url;
-              self.updateMD5 = parsedData.md5;
-
-              cb(null, null);
-            }
-            catch (e)
+            if (!/^application\/json/.test(contentType))
             {
               cb(statusCode, null);
             }
-          });
+            else
+            {
+              response.setEncoding('utf8');
+              var rawData = '';
+              response.on('data', (chunk) => rawData += chunk);
+              response.on('end', function ()
+              {
+                try
+                {
+                  var parsedData = JSON.parse(rawData);
+                  self.updateURL = parsedData.url;
+                  self.updateMD5 = parsedData.md5;
+
+                  cb(null, null);
+                }
+                catch (e)
+                {
+                  cb(statusCode, null);
+                }
+              });
+            }
+          }
+        }).on('error', function (err)
+        {
+          cb(err, null);
         });
       },
       function (res, cb)
@@ -152,6 +159,9 @@ var UpdateObj = function ()
               });
             }
           }
+        }).on('error', function (err)
+        {
+          cb(err, null);
         });
       }
     ],(err, res) => {});
