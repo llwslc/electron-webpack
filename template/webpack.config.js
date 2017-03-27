@@ -111,6 +111,7 @@ let forkConfig = {
       }
     ]
   },
+  plugins: [],
   node: {
     __dirname: true
   },
@@ -126,9 +127,19 @@ let forkConfig = {
 
 if (process.env.NODE_ENV === 'production') {
   forkConfig.devtool = ''
+  forkConfig.plugins.push(
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  )
 }
 
 if (process.env.NODE_ENV !== 'developmentHot') {
+  forkConfig.plugins.push(
+    new webpack.DefinePlugin({
+      __DEFINE_NATIVE_REQUIRE__: JSON.stringify(true)
+    })
+  )
   configArr.push(forkConfig)
 }
 {{/if}}
@@ -136,11 +147,7 @@ if (process.env.NODE_ENV !== 'developmentHot') {
 
 if (process.env.NODE_ENV === 'production') {
   indexConfig.devtool = ''
-
   indexConfig.plugins.push(
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })

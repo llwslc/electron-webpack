@@ -5,7 +5,8 @@ global.readline = require('readline');
 
 global.async = require('async');
 
-if (process.env.NODE_ENV === 'developmentHot') {
+if (typeof(__DEFINE_NATIVE_REQUIRE__) === 'undefined')
+{
   global.__non_webpack_require__ = require;
 }
 
