@@ -29,7 +29,7 @@ let indexConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
+        options: {
           presets: ['es2015', 'stage-0'],
           plugins: ['transform-runtime']
         }
@@ -48,7 +48,7 @@ let indexConfig = {
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
-        query: {
+        options: {
           limit: 10000,
           name: 'imgs/[name].[hash:7].[ext]'
         }
@@ -56,7 +56,7 @@ let indexConfig = {
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'url-loader',
-        query: {
+        options: {
           limit: 10000,
           name: 'fonts/[name].[hash:7].[ext]'
         }
@@ -104,7 +104,7 @@ let forkConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        query: {
+        options: {
           presets: ['es2015', 'stage-0'],
           plugins: ['transform-runtime']
         }
