@@ -29,6 +29,9 @@ npm run package
 # just run webpack for production
 npm run pack:just
 
-# just run webpack for production
+# just run electron packager for production
 npm run package:just
+
+# just run inno setup for production
+npm run installer:just
 ```

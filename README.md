@@ -14,17 +14,15 @@
   * 在 app/src/locale/lang 目录下可以添加任意语言对应翻译, vue 文件中包含示例.
 * 包含多平台文件打包示例
   * win
-    * 打包生成程序为 msi 安装文件.
-      * 依赖 [microsoft visual studio 2015 installer projects](https://marketplace.visualstudio.com/items?itemName=VisualStudioProductTeam.MicrosoftVisualStudio2015InstallerProjects).
-    * 打包生成程序为 zip 升级文件.
-      * 依赖 windows powerShell 5.0 及以上.
+    * 打包生成程序为 exe 安装文件.
+      * 依赖 [inno setup](http://www.jrsoftware.org/isinfo.php).
   * mac
     * 打包生成程序为 dmg 安装文件.
     * 打包生成程序为 zip 升级文件.
 * 包含多平台程序升级示例
   * electron 自带 autoUpdater 采用 Squirrel 框架, 不太友好, 故重构了一个较为简单的升级模块.
   * win
-    * 编译生成一个 update.exe 随主程序一起发布, 主程序请求升级并下载升级压缩包, 退出后执行 update.exe 程序覆盖原程序, 完成升级过程.
+    * 生成一个 exe 安装包, 主程序请求升级并下载该安装包, 退出后执行 'update_v1.0.1.exe /silent, /mergetasks=runapp,!desktopicon,!startmenuicon', 完成升级过程.
   * mac
     * 主程序请求升级并下载解压升级程序, 将解压文件通过 bash shell 直接覆盖原程序, 完成升级过程.
 * 包含两种调试模式
