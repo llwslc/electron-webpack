@@ -84,7 +84,7 @@ var UpdateObj = function ()
 
       if(self.cleanup(exeVersion))
       {
-        fs.unlinkSync(filePath);
+        fs.unlink(filePath, (err) => {});
       }
       else
       {
