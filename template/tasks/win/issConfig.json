@@ -1,0 +1,13 @@
+
+{
+  "AppId": "00000000-0000-0000-0000-000000000000",
+{{#if companyname}}
+  "AppPublisher": "{{ companyname }}",
+{{else}}
+  "AppPublisher": "Github",
+{{/if}}
+  "AppSupportPhone": "010-88888888",
+  "AppPublisherURL": "http://localhost",
+  "AppSupportURL": "http://localhost",
+  "AppUpdatesURL": "http://localhost"
+}

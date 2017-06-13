@@ -13,6 +13,9 @@
     "pack": "node tasks/runner.js pack",
     "package": "node tasks/package.js",
     "pack:just": "node tasks/package.js pack:just",
+{{#if installer}}
+    "installer:just": "node tasks/package.js installer:just",
+{{/if}}
     "package:just": "node tasks/package.js package:just"
   },
   "devDependencies": {
@@ -31,6 +34,9 @@
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.24.1",
     "iconv-lite": "^0.4.15",
+{{#if installer}}
+    "innosetup-compiler": "^5.5.9",
+{{/if}}
     "json-loader": "^0.5.4",
     "node-sass": "^4.1.1",
     "sass-loader": "^4.1.0",

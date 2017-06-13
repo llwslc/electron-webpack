@@ -205,4 +205,4 @@ var installer = function ()
 };
 
 
-module.exports = { installer };
+module.exports = installer;

@@ -13,12 +13,12 @@ var installer = '';
 if (platform === 'win32')
 {
   delDirCmd = 'rmdir /s/q';
-  installer = require('./win/installer.js').installer;
+  installer = require('./win/installer.js');
 }
 else if (platform === 'darwin')
 {
   delDirCmd = 'rm -rf';
-  installer = require('./mac/installer.js').installer;
+  installer = require('./mac/installer.js');
 }
 else
 {
@@ -118,6 +118,12 @@ else if (process.argv[2] == 'package:just')
 {
   packageApp();
 }
+{{#if installer}}
+else if (process.argv[2] == 'installer:just')
+{
+  new installer().create();
+}
+{{/if}}
 else
 {
   pack();

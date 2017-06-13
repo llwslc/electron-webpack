@@ -91,7 +91,8 @@ var errFormat = function (pre, data, col)
 var colFormat = function (data, col)
 {
   if (!!!col) col = END;
-  console.log(`${col}${data}${END}`);
+  var decodedBody = iconv.decode(Buffer(data, 'binary'), Encoding);
+  console.log(`${col}${decodedBody}${END}`);
 };
 
 var execAsync = function (pre, cmd, col, cb)
