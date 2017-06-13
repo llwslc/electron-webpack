@@ -23,6 +23,9 @@ npm run dev
 # run packed project for development
 npm run pack
 
+# run electron without webpack for development
+npm run electron
+
 # build electron app for production
 npm run package
 

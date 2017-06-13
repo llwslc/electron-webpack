@@ -69,6 +69,12 @@ else if (process.argv[2] == 'pack')
   util.colFormat(`Starting webpack...\n`, util.YELLOW);
   run(`${util.packEnv} webpack --progress --colors --hide-modules`, util.YELLOW, 'webpack');
 }
+else if (process.argv[2] == 'electron')
+{
+  util.colFormat(`Starting electron...\n`, util.BLUE);
+  run(`${util.packEnv} electron app/electron.js`, util.BLUE, 'electron');
+  isElectronOpen = true;
+}
 else
 {
   util.colFormat(`Nothing to do...\n`, util.YELLOW);

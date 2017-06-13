@@ -11,6 +11,7 @@
 {{/if}}
     "dev": "node tasks/runner.js dev",
     "pack": "node tasks/runner.js pack",
+    "electron": "node tasks/runner.js electron",
     "package": "node tasks/package.js",
     "pack:just": "node tasks/package.js pack:just",
 {{#if installer}}
