@@ -21,7 +21,7 @@ var installer = function ()
     util.colFormat('Create iis...\n');
     new issTemplate(self.appFileName, self.appIssPath);
 
-    inno(self.appIssPath, function (err)
+    inno(self.appIssPath, {}, function (err)
     {
       if (err)
       {
