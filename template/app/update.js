@@ -15,37 +15,83 @@ var UpdateObj = function ()
 {
   var self = this;
 
-  self.name = pkgInfo;
+  self.name = pkgInfo.name;
   self.version = pkgInfo.version;
   self.platform = os.platform();
 
   self.feedURL = '';
   self.updateURL = '';
+  self.updateVer = '';
   self.updateMD5 = '';
   self.updatePath = '';
 
+  self.getVerNum = function (ver)
+  {
+    var verArr = ver.split('.');
+    var num = 0;
+    num += parseInt(verArr[0]) * 1000 * 1000;
+    num += parseInt(verArr[1]) * 1000;
+    num += parseInt(verArr[2]);
+    return num;
+  };
+
+  self.cleanup = function (ver)
+  {
+    var needCleanup = false;
+    var curVer = self.getVerNum(self.version);
+    var fileVer = self.getVerNum(ver);
+
+    if (fileVer <= curVer)
+    {
+      needCleanup = true;
+    }
+
+    return needCleanup;
+  };
+
   self.updateButtons = [];
-  self.updateMessage = '';
+  self.updateMessage = '发现新版本, 点击"重启升级"后即可完成升级!';
 
   if (self.platform === 'win32')
   {
     self.updateButtons = ['重启升级', '取消'];
-    self.updateMessage = '点击"重启升级"后即可完成升级!';
     self.updateResponse = 0;
 
-    self.updatePath = `${path.join(process.argv[0], '..', 'update.zip')}`;
+    self.appDataDir = path.join(process.env.APPDATA, pkgInfo.name);
+    if (!fs.existsSync(self.appDataDir))
+    {
+      fs.mkdirSync(self.appDataDir)
+    }
   }
   else if (self.platform === 'darwin')
   {
     self.updateButtons = ['取消', '重启升级'];
-    self.updateMessage = '发现新版本, 点击"重启升级"后即可完成升级!';
     self.updateResponse = 1;
 
-    self.updatePath = `${path.join(process.argv[0], '../../..', 'update.zip')}`;
+    self.appDataDir = path.join(process.argv[0], '../../..');
   }
   else
   {
   }
+
+  var files = fs.readdirSync(self.appDataDir);
+  files.forEach(function (file, index)
+  {
+    if (/^update_v([\d.]+)\.(exe|zip)$/.test(file))
+    {
+      var exeVersion = path.basename(file, path.extname(file)).split('_v')[1];
+      var filePath = path.join(self.appDataDir, file);
+
+      if(self.cleanup(exeVersion))
+      {
+        fs.unlinkSync(filePath);
+      }
+      else
+      {
+        self.updatePath = filePath;
+      }
+    }
+  });
 
   self.setFeedURL = function (url)
   {
@@ -116,6 +162,7 @@ var UpdateObj = function ()
                 {
                   var parsedData = JSON.parse(rawData);
                   self.updateURL = parsedData.url;
+                  self.updateVer = parsedData.version;
                   self.updateMD5 = parsedData.md5;
 
                   cb(null, null);
@@ -145,11 +192,23 @@ var UpdateObj = function ()
           }
           else
           {
-            if (!/^application\/zip/.test(contentType))
+            var downloadFlag = false;
+            if (/^application\/x-msdownload/.test(contentType))
+            {
+              self.updatePath = path.join(self.appDataDir, `update_v${self.updateVer}.exe`);
+              downloadFlag = true;
+            }
+            else if (/^application\/zip/.test(contentType))
+            {
+              self.updatePath = path.join(self.appDataDir, `update_v${self.updateVer}.zip`);
+              downloadFlag = true;
+            }
+            else
             {
               cb(statusCode, null);
             }
-            else
+
+            if (downloadFlag)
             {
               response.pipe(fs.createWriteStream(self.updatePath));
 
@@ -172,10 +231,12 @@ var UpdateObj = function ()
     var exec = childProcess.exec;
     if (self.platform === 'win32')
     {
-      var updateExePath = './update.exe';
-      if (fs.existsSync(updateExePath))
+      if (fs.existsSync(self.updatePath))
       {
-        exec(`start ${updateExePath} ${pkgInfo.name} ${process.pid}`, {encoding: 'binary'});
+        childProcess.spawn(self.updatePath, ['/silent', '/mergetasks=runapp,!desktopicon,!startmenuicon'], {
+          detached: true,
+          stdio: ['ignore', 'ignore', 'ignore']
+        });
         app.exit(0);
       }
       else
@@ -201,4 +262,4 @@ var UpdateObj = function ()
 }
 
 
-module.exports = { UpdateObj };
+module.exports = UpdateObj;

@@ -53,7 +53,7 @@ function createWindow ()
 {{#if update}}
   if (process.env.NODE_ENV === 'production')
   {
-    const UpdateObj = require('./update').UpdateObj;
+    const UpdateObj = require('./update');
     let update = new UpdateObj();
     update.setFeedURL('http://localhost');
     update.checkLocalUpdates();
