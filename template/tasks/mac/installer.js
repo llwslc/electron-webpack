@@ -1,4 +1,5 @@
 
+const fs = require('fs');
 const os = require('os');
 const platform = os.platform();
 const arch = os.arch();
@@ -49,7 +50,15 @@ var installer = function ()
       },
       function (res, cb)
       {
-        util.copyAsync(`./tasks/mac/background.png`, `${self.appFilePath}/.background.png`, cb);
+        if (!fs.existsSync(`${self.appFilePath}/.background`))
+        {
+          fs.mkdirSync(`${self.appFilePath}/.background`);
+        }
+        cb (null, null);
+      },
+      function (res, cb)
+      {
+        util.copyAsync(`./tasks/mac/background.png`, `${self.appFilePath}/.background/background.png`, cb);
       },
       function (res, cb)
       {
@@ -117,7 +126,7 @@ var installer = function ()
                   set arrangement to not arranged
               end tell
 
-              set background picture of opts to file ".background.png"
+              set background picture of opts to file ".background:background.png"
 
               close
 
