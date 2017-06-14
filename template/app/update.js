@@ -58,20 +58,21 @@ var UpdateObj = function ()
     self.updateResponse = 0;
 
     self.appDataDir = path.join(process.env.APPDATA, pkgInfo.name);
-    if (!fs.existsSync(self.appDataDir))
-    {
-      fs.mkdirSync(self.appDataDir)
-    }
   }
   else if (self.platform === 'darwin')
   {
     self.updateButtons = ['取消', '重启升级'];
     self.updateResponse = 1;
 
-    self.appDataDir = path.join(process.argv[0], '../../..');
+    self.appDataDir = path.join(process.env.HOME, '/Library/Application Support', pkgInfo.name);
   }
   else
   {
+  }
+
+  if (!fs.existsSync(self.appDataDir))
+  {
+    fs.mkdirSync(self.appDataDir);
   }
 
   var files = fs.readdirSync(self.appDataDir);
@@ -246,10 +247,11 @@ var UpdateObj = function ()
     }
     else if (self.platform === 'darwin')
     {
-      var unzip = exec(`unzip -o ${self.updatePath} -d ${path.join(self.updatePath, '..')}`, {encoding: 'binary'});
+      var unzipPath = path.join(process.argv[0], '../../..');
+      var unzip = exec(`unzip -o '${self.updatePath}' -d '${unzipPath}'`, {encoding: 'binary'});
       unzip.on('exit', function (code)
       {
-         exec(`rm ${self.updatePath}`);
+         exec(`rm '${self.updatePath}'`);
          app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])});
          app.exit(0);
       });
