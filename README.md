@@ -22,7 +22,7 @@
 * 包含多平台程序升级示例
   * electron 自带 autoUpdater 采用 Squirrel 框架, 不太友好, 故重构了一个较为简单的升级模块.
   * win
-    * 生成一个 exe 安装包, 主程序请求升级并下载该安装包, 退出后执行 'update_v1.0.1.exe /silent, /mergetasks=runapp,!desktopicon,!startmenuicon', 完成升级过程.
+    * 生成一个 exe 安装包, 主程序请求升级并下载该安装包, 退出后执行 'update_v1.0.1.exe /silent /mergetasks=runapp,!desktopicon,!startmenuicon', 完成升级过程.
   * mac
     * 主程序请求升级并下载解压升级程序, 将解压文件通过 bash shell 直接覆盖原程序, 完成升级过程.
 * 包含两种调试模式

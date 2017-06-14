@@ -233,10 +233,7 @@ var UpdateObj = function ()
     {
       if (fs.existsSync(self.updatePath))
       {
-        childProcess.spawn(self.updatePath, ['/silent', '/mergetasks=runapp,!desktopicon,!startmenuicon'], {
-          detached: true,
-          stdio: ['ignore', 'ignore', 'ignore']
-        });
+        exec(`start ${self.updatePath} /silent /mergetasks=runapp,!desktopicon,!startmenuicon`, {encoding: 'binary'});
         app.exit(0);
       }
       else
