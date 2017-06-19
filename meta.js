@@ -3,42 +3,35 @@
 module.exports = {
   prompts: {
     name: {
-      type: 'string',
-      required: true,
+      type: 'editor',
       message: 'Application Name'
     },
     description: {
-      type: 'string',
-      required: false,
+      type: 'editor',
       message: 'Project Description',
       default: 'An electron-webpack project'
     },
     companyname: {
-      type: 'string',
-      required: false,
+      type: 'editor',
       message: 'Company Name',
     },
     rebuild: {
       type: 'confirm',
-      require: true,
       message: 'Use Native Addons (rebuild flag)?',
       default: true
     },
     fork: {
       type: 'confirm',
-      require: true,
       message: 'Use child_process.fork (fork flag)?',
       default: true
     },
     update: {
       type: 'confirm',
-      require: true,
       message: 'Use update framework (update flag)?',
       default: true
     },
     installer: {
       type: 'confirm',
-      require: true,
       message: 'Make installer (installer flag)?',
       default: true
     },
