@@ -27,7 +27,7 @@
 {{#if rebuild}}
       const NativeAddonObj = require('NativeAddon.node');
 {{/if}}
-      const __DEBUG__ = false;
+      var __DEBUG__ = false;
       if (process.env.DEBUG) __DEBUG__ = true;
     </script>
   </head>
