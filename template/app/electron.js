@@ -40,8 +40,6 @@ function createWindow ()
 
   mainWindow.maximize();
 
-  mainWindow.loadURL(config.url);
-
   if (process.env.NODE_ENV.indexOf('development') !== -1)
   {
     BrowserWindow.addDevToolsExtension(path.join(__dirname, '../node_modules/devtron'));
@@ -50,15 +48,21 @@ function createWindow ()
     mainWindow.webContents.openDevTools();
   }
 
-{{#if update}}
   if (process.env.NODE_ENV === 'production')
   {
+{{#if update}}
     const UpdateObj = require('./update');
     let update = new UpdateObj();
     update.setFeedURL('http://localhost');
     update.checkLocalUpdates();
-  }
 {{/if}}
+    if (process.argv[1] === 'debug')
+    {
+      process.env.DEBUG = true;
+    }
+  }
+
+  mainWindow.loadURL(config.url);
 
   mainWindow.on('closed', function ()
   {
