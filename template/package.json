@@ -5,7 +5,7 @@
   "author": "llwslc <llwslc@gmail.com>",
   "scripts": {
 {{#if rebuild}}
-    "postinstall": "cd app && npm i && node ../tasks/install.js",
+    "postinstall": "cd app && npm i --build-from-source && node ../tasks/install.js",
 {{else}}
     "postinstall": "cd app && npm i",
 {{/if}}

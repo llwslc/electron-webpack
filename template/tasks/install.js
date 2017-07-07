@@ -29,14 +29,6 @@ async.waterfall([
   },
   function (res, cb)
   {
-    npmExecAsync(`npm i serialport --build-from-source`, cb);
-  },
-  function (res, cb)
-  {
-    npmExecAsync(`cd node_modules/serialport && ${buildAddons}`, cb);
-  },
-  function (res, cb)
-  {
     npmExecAsync(`cd ../../NativeAddonProjectDir && ${buildAddons}`, cb);
   },
   function (res, cb)
