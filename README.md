@@ -5,7 +5,7 @@
 * 包含支持 vue 框架示例
   * 使用 webpack 打包 vue 框架文件.
 * 包含编译 native addons 示例
-  * 编译采用 tasks/install.js 中执行命令行方式解决, postinstall 使用 npm i --build-from-source 参数的添加是为了解决 amazonaws 被墙从而导致 node 文件无法下载, npm 超时问题.
+  * 编译采用 tasks/install.js 中执行命令行方式解决, postinstall 使用 npm i --build-from-source 参数的添加是为了解决 amazonaws 被墙从而导致 node 文件无法下载, npm 超时问题.
 * 包含打包 native addons 示例
   * webpack 的 node-loader 模块, 在代码中将 node 文件识别为绝对路径, 无法将含有 native addons 的工程正确打包为可执行程序. 本例将 app/node_modules 也打包进 app.asar 中, 并将 require 代码写在 index.ejs 中 head 代码块中以此来解决打包问题.
 * 包含使用 fork 函数的示例
