@@ -72,7 +72,12 @@ function createWindow ()
   console.log('mainWindow opened');
 }
 
-app.on('ready', createWindow);
+app.on('open-file', (e, path) =>
+{
+  // dialog.showErrorBox('openFile', path);
+});
+
+app.once('ready', createWindow);
 
 app.on('window-all-closed', function ()
 {

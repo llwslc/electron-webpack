@@ -27,6 +27,12 @@ let config = {
     },
     platform: require('os').platform(),
     out: path.join(__dirname, 'packages'),
+    extendInfo: {
+      CFBundleDocumentTypes: [
+      {
+        CFBundleTypeExtensions: ['dat']
+      }]
+    },
   }
 }
 
