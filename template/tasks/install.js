@@ -9,12 +9,13 @@ var buildAddons = `node-gyp rebuild --target=${electronVersion} --arch=x64 --dis
 var npmExecAsync = function (cmd, cb)
 {
   util.execAsync('npm', cmd, util.BLUE, cb);
-}
+};
 
 async.waterfall([
   function (cb)
   {
-    exec(`electron -v`, (error, stdout, stderr) => {
+    exec(`cd .. && electron -v`, (error, stdout, stderr) =>
+    {
       if (error)
       {
         cb(error, null);
@@ -23,7 +24,7 @@ async.waterfall([
       {
         electronVersion = stdout.match(/\d+.\d+.\d+/g);
         buildAddons = `node-gyp rebuild --target=${electronVersion[0]} --arch=x64 --dist-url=https://atom.io/download/atom-shell`;
-        cb(null, null)
+        cb(null, null);
       }
     });
   },
