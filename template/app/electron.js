@@ -1,4 +1,3 @@
-'use strict'
 
 const electron = require('electron');
 const path = require('path');
@@ -11,6 +10,7 @@ let config = {};
 
 if (!!process.env.NODE_ENV)
 {
+  // null
 }
 else
 {
@@ -28,7 +28,7 @@ else
   config.url = `file://${__dirname}/dist/index.html`;
 }
 
-function createWindow ()
+function createWindow()
 {
   /**
    * Initial window options
@@ -67,7 +67,7 @@ function createWindow ()
   mainWindow.on('closed', function ()
   {
     mainWindow = null;
-  })
+  });
 
   console.log('mainWindow opened');
 }
