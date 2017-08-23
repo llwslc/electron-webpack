@@ -1,4 +1,3 @@
-'use strict'
 
 const electron = require('electron');
 const app = electron.app;
@@ -24,6 +23,7 @@ var UpdateObj = function ()
   self.updateVer = '';
   self.updateMD5 = '';
   self.updatePath = '';
+  self.updateTmpPath = '';
 
   self.getVerNum = function (ver)
   {
@@ -68,6 +68,7 @@ var UpdateObj = function ()
   }
   else
   {
+    // null
   }
 
   if (!fs.existsSync(self.appDataDir))
@@ -76,14 +77,14 @@ var UpdateObj = function ()
   }
 
   var files = fs.readdirSync(self.appDataDir);
-  files.forEach(function (file, index)
+  files.forEach(function (file)
   {
     if (/^update_v([\d.]+)\.(exe|zip)$/.test(file))
     {
       var exeVersion = path.basename(file, path.extname(file)).split('_v')[1];
       var filePath = path.join(self.appDataDir, file);
 
-      if(self.cleanup(exeVersion))
+      if (self.cleanup(exeVersion))
       {
         fs.unlink(filePath, (err) => {});
       }
@@ -113,13 +114,13 @@ var UpdateObj = function ()
         buttons: self.updateButtons,
         title: '发现新版本',
         message: self.updateMessage,
-      }, function(response)
+      }, function (response)
       {
         if (response == self.updateResponse)
         {
           self.quitAndInstall();
         }
-      })
+      });
     }
     else
     {
@@ -137,7 +138,7 @@ var UpdateObj = function ()
         url += `version=${self.version}&`;
         url += `app=${self.name}`;
 
-        var request = http.get(url, function (response)
+        http.get(url, function (response)
         {
           var statusCode = response.statusCode;
           var contentType = response.headers['content-type'];
@@ -182,7 +183,7 @@ var UpdateObj = function ()
       },
       function (res, cb)
       {
-        var request = http.get(self.updateURL, function (response)
+        http.get(self.updateURL, function (response)
         {
           var statusCode = response.statusCode;
           var contentType = response.headers['content-type'];
@@ -196,11 +197,13 @@ var UpdateObj = function ()
             var downloadFlag = false;
             if (/^application\/x-msdownload/.test(contentType))
             {
+              self.updateTmpPath = path.join(self.appDataDir, `temp_v${self.updateVer}.exe`);
               self.updatePath = path.join(self.appDataDir, `update_v${self.updateVer}.exe`);
               downloadFlag = true;
             }
             else if (/^application\/zip/.test(contentType))
             {
+              self.updateTmpPath = path.join(self.appDataDir, `temp_v${self.updateVer}.zip`);
               self.updatePath = path.join(self.appDataDir, `update_v${self.updateVer}.zip`);
               downloadFlag = true;
             }
@@ -211,10 +214,11 @@ var UpdateObj = function ()
 
             if (downloadFlag)
             {
-              response.pipe(fs.createWriteStream(self.updatePath));
+              response.pipe(fs.createWriteStream(self.updateTmpPath));
 
               response.on('end', function ()
               {
+                fs.renameSync(self.updateTmpPath, self.updatePath);
                 cb(null, null);
               });
             }
@@ -224,7 +228,7 @@ var UpdateObj = function ()
           cb(err, null);
         });
       }
-    ],(err, res) => {});
+    ], (err, res) => {});
   };
 
   self.quitAndInstall = function ()
@@ -246,11 +250,11 @@ var UpdateObj = function ()
     {
       var unzipPath = path.join(process.argv[0], '../../..');
       var unzip = exec(`unzip -o '${self.updatePath}' -d '${unzipPath}'`, {encoding: 'binary'});
-      unzip.on('exit', function (code)
+      unzip.on('exit', function ()
       {
-         exec(`rm '${self.updatePath}'`);
-         app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])});
-         app.exit(0);
+        exec(`rm '${self.updatePath}'`);
+        app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])});
+        app.exit(0);
       });
     }
     else
@@ -258,7 +262,7 @@ var UpdateObj = function ()
       // null
     }
   };
-}
+};
 
 
 module.exports = UpdateObj;
