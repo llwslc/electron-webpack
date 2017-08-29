@@ -8,56 +8,54 @@ let isElectronOpen = false;
 
 let children = [];
 
-function run (command, color, name) {
+var run = function (command, color, name)
+{
   let child = exec(command);
 
-  child.stdout.on('data', data => {
+  child.stdout.on('data', data =>
+  {
     util.logFormat(name, data, color);
 
-    /**
-     * Start electron after VALID build
-     * (prevents electron from opening a blank window that requires refreshing)
-     *
-     * NOTE: needs more testing for stability
-     */
-    if (/Compiled successfully/g.test(data.toString()) && !isElectronOpen) {
+    if (/Compiled successfully/g.test(data.toString()) && !isElectronOpen)
+    {
       util.colFormat(`Starting electron...\n`, util.BLUE);
       run(`${util.hotEnv} electron app/electron.js`, util.BLUE, 'electron');
       isElectronOpen = true;
     }
-  })
+  });
 
   child.stderr.on('data', data => util.errFormat(name, data, color));
   child.on('exit', code => exit(code));
 
   children.push(child);
-}
+};
 
-function exit (code) {
-  if (process.argv[2] == 'dev')
+var exit = function (code)
+{
+  if (process.argv[2] == 'pack')
   {
-    children.forEach(child => {
-      treeKill(child.pid);
-    })
-  }
-  else if (process.argv[2] == 'pack')
-  {
-    if (!isElectronOpen) {
+    if (!isElectronOpen)
+    {
       util.colFormat(`Starting electron...\n`, util.BLUE);
       run(`${util.packEnv} electron app/electron.js`, util.BLUE, 'electron');
       isElectronOpen = true;
     }
-    else {
-      children.forEach(child => {
+    else
+    {
+      children.forEach(child =>
+      {
         treeKill(child.pid);
-      })
+      });
     }
   }
   else
   {
-    // null
+    children.forEach(child =>
+    {
+      treeKill(child.pid);
+    });
   }
-}
+};
 
 if (process.argv[2] == 'dev')
 {

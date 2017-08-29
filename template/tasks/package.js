@@ -34,7 +34,7 @@ var del = function (mPath, cb)
   mPath = path.resolve(__dirname, mPath)
   if (fs.existsSync(mPath))
   {
-    if(!fs.statSync(mPath).isDirectory())
+    if (!fs.statSync(mPath).isDirectory())
     {
       util.colFormat(`${mPath} not directiry!`, util.RED);
       return;
