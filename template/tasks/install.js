@@ -30,6 +30,10 @@ async.waterfall([
   },
   function (res, cb)
   {
+    npmExecAsync(`cd node_modules/NativeAddonPackageName && ${buildAddons}`, cb);
+  },
+  function (res, cb)
+  {
     npmExecAsync(`cd ../../NativeAddonProjectDir && ${buildAddons}`, cb);
   },
   function (res, cb)
