@@ -8,17 +8,23 @@ const packager = require('electron-packager');
 const util = require('./util');
 
 var delDirCmd = '';
+{{#if installer}}
 var installer = '';
+{{/if}}
 
 if (platform === 'win32')
 {
   delDirCmd = 'rmdir /s/q';
+{{#if installer}}
   installer = require('./win/installer.js');
+{{/if}}
 }
 else if (platform === 'darwin')
 {
   delDirCmd = 'rm -rf';
+{{#if installer}}
   installer = require('./mac/installer.js');
+{{/if}}
 }
 else
 {
@@ -103,6 +109,11 @@ var packageApp = function ()
         util.logFormat('electron-packager', 'Build successful!', util.BLUE);
         util.colFormat('');
 {{#if installer}}
+        if (process.argv[2] == 'package:just')
+        {
+          return;
+        }
+
         new installer().create();
 {{/if}}
       }
