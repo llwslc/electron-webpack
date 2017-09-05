@@ -1,9 +1,6 @@
 
 app/dist/*
 packages/*
-tasks/win/windowsInstaller/*
-tasks/win/update/Debug/*
-tasks/win/update/Release/*
 
 node_modules
 npm-debug.log
