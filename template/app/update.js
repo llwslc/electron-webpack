@@ -79,10 +79,11 @@ var UpdateObj = function ()
   var files = fs.readdirSync(self.appDataDir);
   files.forEach(function (file)
   {
+    var filePath = path.join(self.appDataDir, file);
+
     if (/^update_v([\d.]+)\.(exe|zip)$/.test(file))
     {
       var exeVersion = path.basename(file, path.extname(file)).split('_v')[1];
-      var filePath = path.join(self.appDataDir, file);
 
       if (self.cleanup(exeVersion))
       {
@@ -92,6 +93,11 @@ var UpdateObj = function ()
       {
         self.updatePath = filePath;
       }
+    }
+
+    if (/^temp_v([\d.]+)\.(exe|zip)$/.test(file))
+    {
+      fs.unlink(filePath, (err) => {});
     }
   });
 
