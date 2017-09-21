@@ -16,7 +16,7 @@ let config = {
     asar: true,
     dir: path.join(__dirname, 'app'),
     icon: path.join(__dirname, 'app/icons/icon'),
-    ignore: /^\/(icons|shell|src|index\.ejs)/,
+    ignore: /^\/(shell|src|index\.ejs)/,
     prune: false,
     overwrite: true,
     win32metadata: {
